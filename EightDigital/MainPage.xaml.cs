@@ -210,11 +210,12 @@ namespace EightDigital {
                 }
             }
             StateToBoard(current);
-            Bindings.Update();
             if (ShowProcedure) {
+                Bindings.Update();
                 await Task.Delay(10);
             }
             if (CurrentH == 0) {
+                Bindings.Update();
                 return;
             }
 
