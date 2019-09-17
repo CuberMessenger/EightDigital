@@ -9,224 +9,256 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="4*" />
-            </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+            <TextBox Name="StateTextBox"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Center"
+                     Width="150"
+                     KeyUp="StateTextBox_KeyUp"/>
 
             <Button Name="RefreshButton"
-                    Grid.Row="0"
-                    HorizontalAlignment="Center"
+                    Width="150"
+                    Margin="0 5"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="Refresh"
                     Click="RefreshButton_Click" />
 
+            <Button Name="StartButton"
+                    Width="150"
+                    Margin="0 5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Start"
+                    Click="StartButton_Click" />
+
             <Button Name="NextStepButton"
-                    Grid.Row="1"
-                    HorizontalAlignment="Center"
+                    Width="150"
+                    Margin="0 5"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="Next Step"
                     Click="NextStepButton_Click" />
 
-            <StackPanel Grid.Row="2"
-                        HorizontalAlignment="Center"
+            <StackPanel HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
                 <TextBlock Text="Use H2 Function: "
                            FontSize="15"
+                           Margin="0 0 10 0"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
                 <ToggleSwitch Name="UseH2FunctionSwitch"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                          Grid.Row="2"
-                          IsOn="{x:Bind UseH2Function}"/>
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              IsOn="{x:Bind UseH2Function, Mode=TwoWay}" />
             </StackPanel>
 
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                <TextBlock Text="Show Procedure: "
+                           FontSize="15"
+                           Margin="0 0 10 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+
+                <ToggleSwitch Name="ShowProcedureSwitch"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              IsOn="{x:Bind ShowProcedure, Mode=TwoWay}" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+            <Grid Margin="0 20"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.Row="0"
+                           Grid.Column="0"
+                           Fill="{x:Bind GetColor(b00)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="{x:Bind b00}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="0"
+                           Grid.Column="1"
+                           Fill="{x:Bind GetColor(b01)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           Text="{x:Bind b01}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="0"
+                           Grid.Column="2"
+                           Fill="{x:Bind GetColor(b02)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="2"
+                           Text="{x:Bind b02}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="1"
+                           Grid.Column="0"
+                           Fill="{x:Bind GetColor(b10)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="{x:Bind b10}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="1"
+                           Grid.Column="1"
+                           Fill="{x:Bind GetColor(b11)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{x:Bind b11}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="1"
+                           Grid.Column="2"
+                           Fill="{x:Bind GetColor(b12)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="2"
+                           Text="{x:Bind b12}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="2"
+                           Grid.Column="0"
+                           Fill="{x:Bind GetColor(b20)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="{x:Bind b20}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="2"
+                           Grid.Column="1"
+                           Fill="{x:Bind GetColor(b21)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           Text="{x:Bind b21}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Rectangle Grid.Row="2"
+                           Grid.Column="2"
+                           Fill="{x:Bind GetColor(b22)}"
+                           Width="64px"
+                           Height="64px" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="2"
+                           Text="{x:Bind b22}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="36" />
+
+                <Border Grid.Row="0"
+                        Grid.Column="0"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="0"
+                        Grid.Column="1"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="0"
+                        Grid.Column="2"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="1"
+                        Grid.Column="0"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="1"
+                        Grid.Column="1"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="1"
+                        Grid.Column="2"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="2"
+                        Grid.Column="0"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="2"
+                        Grid.Column="1"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+                <Border Grid.Row="2"
+                        Grid.Column="2"
+                        BorderThickness="1"
+                        BorderBrush="Gray" />
+
+            </Grid>
+
             <TextBlock Name="StateNumberTextBlock"
-                       Grid.Row="2"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Bottom"
-                       FontSize="36" 
-                       Text="{x:Bind CurrentStateNum}"/>
+                       Margin="0 0 0 100"
+                       FontSize="36"
+                       Text="{x:Bind CurrentStateNum}" />
+        </StackPanel>
 
-        </Grid>
-
-        <Grid Grid.Column="0"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Rectangle Grid.Row="0"
-                       Grid.Column="0"
-                       Fill="{x:Bind GetColor(b00)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="0"
-                       Grid.Column="0"
-                       Text="{x:Bind b00}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="0"
-                       Grid.Column="1"
-                       Fill="{x:Bind GetColor(b01)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="0"
-                       Grid.Column="1"
-                       Text="{x:Bind b01}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="0"
-                       Grid.Column="2"
-                       Fill="{x:Bind GetColor(b02)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="0"
-                       Grid.Column="2"
-                       Text="{x:Bind b02}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="1"
-                       Grid.Column="0"
-                       Fill="{x:Bind GetColor(b10)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="1"
-                       Grid.Column="0"
-                       Text="{x:Bind b10}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="1"
-                       Grid.Column="1"
-                       Fill="{x:Bind GetColor(b11)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="1"
-                       Grid.Column="1"
-                       Text="{x:Bind b11}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="1"
-                       Grid.Column="2"
-                       Fill="{x:Bind GetColor(b12)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="1"
-                       Grid.Column="2"
-                       Text="{x:Bind b12}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="2"
-                       Grid.Column="0"
-                       Fill="{x:Bind GetColor(b20)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="2"
-                       Grid.Column="0"
-                       Text="{x:Bind b20}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="2"
-                       Grid.Column="1"
-                       Fill="{x:Bind GetColor(b21)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="2"
-                       Grid.Column="1"
-                       Text="{x:Bind b21}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Rectangle Grid.Row="2"
-                       Grid.Column="2"
-                       Fill="{x:Bind GetColor(b22)}"
-                       Width="64px"
-                       Height="64px" />
-            <TextBlock Grid.Row="2"
-                       Grid.Column="2"
-                       Text="{x:Bind b22}"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="36" />
-
-            <Border Grid.Row="0"
-                    Grid.Column="0"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="0"
-                    Grid.Column="1"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="0"
-                    Grid.Column="2"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="1"
-                    Grid.Column="0"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="1"
-                    Grid.Column="1"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="1"
-                    Grid.Column="2"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="2"
-                    Grid.Column="0"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="2"
-                    Grid.Column="1"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-            <Border Grid.Row="2"
-                    Grid.Column="2"
-                    BorderThickness="1"
-                    BorderBrush="Gray" />
-
-        </Grid>
     </Grid>
 </Page>

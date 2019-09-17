@@ -23,6 +23,8 @@ namespace EightDigital {
 
         private bool UseH2Function { get; set; }
 
+        private bool ShowProcedure { get; set; }
+
         private HashSet<int> ToSearchStates { get; set; }
 
         private HashSet<int> SearchedStates { get; set; }
@@ -30,7 +32,7 @@ namespace EightDigital {
         private Dictionary<int, int> GScore { get; set; }
 
         private Dictionary<int, int> FScore { get; set; }
-        //                                           1 2 3 4 5 6 7 8 0
+
         private List<int?> Origin = new List<int?> { 1, 2, 3, 8, null, 4, 7, 6, 5 };
 
         private int CurrentStateNum => (int)Board.Aggregate((x, y) => (x is null ? 0 : x) * 10 + (y is null ? 0 : y));
@@ -38,6 +40,7 @@ namespace EightDigital {
         //Number of wrong placed digits
         private int CurrentH1 => Board.Count(d => d != Origin[Board.IndexOf(d)]);
 
+        //Block distance between each digits and its objective place
         private int CurrentH2 {
             get {
                 int ans = 0;
@@ -55,6 +58,14 @@ namespace EightDigital {
 
         private int CurrentH => UseH2Function ? CurrentH2 : CurrentH1;
 
+        public MainPage() {
+            this.InitializeComponent();
+            UseH2Function = true;
+            ShowProcedure = true;
+            StateTextBox.Text = "";
+            RefreshButton_Click(null, null);
+        }
+
         private bool Solvable() {
             int numOfRe = 0;
             for (int i = 0; i < 9; i++) {
@@ -68,12 +79,6 @@ namespace EightDigital {
                 }
             }
             return (numOfRe % 2) == 1;
-        }
-
-        public MainPage() {
-            this.InitializeComponent();
-            UseH2Function = true;
-            RefreshButton_Click(null, null);
         }
 
         private void StateToBoard(int state) {
@@ -90,7 +95,6 @@ namespace EightDigital {
                 }
                 state /= 10;
             }
-            //Board.Reverse();
         }
 
         private List<int> GetNeighbors(int current) {
@@ -172,9 +176,21 @@ namespace EightDigital {
             GScore = new Dictionary<int, int>();
             FScore = new Dictionary<int, int>();
 
-            Board = Origin.OrderBy(d => rand.Next()).ToList();
-            while (!Solvable()) {
+            if (StateTextBox.Text != "") {
+                StateToBoard(int.Parse(StateTextBox.Text));
+                if (Solvable()) {
+                    StateTextBox.Text = "";
+                }
+                else {
+                    StateTextBox.Text = "No solution!";
+                    return;
+                }
+            }
+            else {
                 Board = Origin.OrderBy(d => rand.Next()).ToList();
+                while (!Solvable()) {
+                    Board = Origin.OrderBy(d => rand.Next()).ToList();
+                }
             }
             ToSearchStates.Add(CurrentStateNum);
             GScore[CurrentStateNum] = 0;
@@ -183,8 +199,9 @@ namespace EightDigital {
         }
 
         private async void NextStepButton_Click(object sender, RoutedEventArgs e) {
+            bool? continuous = (e.OriginalSource as Button).Tag as bool?;
         start:
-            int current = 0;//FScore.Where(p => ToSearchStates.Contains(p.Key)).OrderBy(p => p.Value).First().Key;
+            int current = 0;
             int minFS = int.MaxValue;
             foreach (int s in ToSearchStates) {
                 if (FScore[s] < minFS) {
@@ -194,7 +211,9 @@ namespace EightDigital {
             }
             StateToBoard(current);
             Bindings.Update();
-            await Task.Delay(20);
+            if (ShowProcedure) {
+                await Task.Delay(10);
+            }
             if (CurrentH == 0) {
                 return;
             }
@@ -221,8 +240,20 @@ namespace EightDigital {
                     }
                 }
             }
+            if (continuous is true) {
+                goto start;
+            }
+        }
 
-            goto start;
+        private void StartButton_Click(object sender, RoutedEventArgs e) {
+            (e.OriginalSource as Button).Tag = true;
+            NextStepButton_Click(sender, e);
+        }
+
+        private void StateTextBox_KeyUp(object sender, KeyRoutedEventArgs e) {
+            if (e.Key == Windows.System.VirtualKey.Enter) {
+                RefreshButton_Click(sender, null);
+            }
         }
     }
 
